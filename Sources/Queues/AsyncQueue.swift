@@ -82,7 +82,7 @@ extension Queue {
         try await self.set(id, to: storage).get()
         logger.trace("Pusing job to queue")
         try await self.push(id).get()
-        logger.info("Dispatched job")
+        logger.trace("Dispatched job")
         Counter(label: "dispatched.jobs.counter", dimensions: [
             ("queueName", self.queueName.string),
             ("jobName", J.name),
