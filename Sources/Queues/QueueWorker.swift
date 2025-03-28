@@ -76,7 +76,7 @@ public struct QueueWorker: Sendable {
 
     private func runOneJob(id: JobIdentifier, job: any AnyJob, jobData: JobData, logger: Logger) async throws {
         let startTime = DispatchTime.now().uptimeNanoseconds
-        logger.info("Dequeing and running job", metadata: ["attempt": "\(jobData.currentAttempt)", "retries-left": "\(jobData.remainingAttempts)"])
+        logger.trace("Dequeing and running job", metadata: ["attempt": "\(jobData.currentAttempt)", "retries-left": "\(jobData.remainingAttempts)"])
         do {
             try await job._dequeue(self.queue.context, id: id.string, payload: jobData.payload).get()
 
